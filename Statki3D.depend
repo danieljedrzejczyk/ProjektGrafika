@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1544196431 source:c:\users\3dani\desktop\statki3d\main.cpp
+	<iostream>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<string.h>
+	<list>
+	<time.h>
+	<map>
+	<algorithm>
+	<ctime>
+
+1544189379 c:\users\3dani\desktop\statki3d\stb_image.h
+	"stb_image.h"
+	<stdio.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<math.h>
+	<stdio.h>
+	<assert.h>
+	<stdint.h>
+	<emmintrin.h>
+	<intrin.h>
+	<arm_neon.h>
+
+1544281537 source:c:\users\daniel\desktop\statki3d\main.cpp
+	<iostream>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<GL/glpng.h>
+	<string.h>
+	<stdio.h>
+	<list>
+	<time.h>
+	<map>
+	<algorithm>
+	<ctime>
+
