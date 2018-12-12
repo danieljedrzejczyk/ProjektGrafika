@@ -41,3 +41,18 @@
 	<algorithm>
 	<ctime>
 
+1544627400 source:c:\users\3dani\desktop\projektgrafika\main.cpp
+	<iostream>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<SOIL.h>
+	<string.h>
+	<stdio.h>
+	<list>
+	<time.h>
+	<map>
+	<algorithm>
+	<ctime>
+	<windows.h>
+
