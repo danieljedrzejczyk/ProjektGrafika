@@ -16,7 +16,8 @@
 using namespace std;
 
 int delta, lastTime;
-
+GLuint texture[1];
+int flaga_menu = 0;
 class Engine
 {
 private:
@@ -47,156 +48,176 @@ public:
     static Engine* getInstance()
     {
         return (!m_instanceSingleton) ?
-        m_instanceSingleton = new Engine :
+               m_instanceSingleton = new Engine :
         m_instanceSingleton;
     }
+    // Ładowanie tekstur
+    int LoadGLTextures()
+    {
+        texture[0] = SOIL_load_OGL_texture
+                     (
+                         "menu.jpg",
+                         SOIL_LOAD_AUTO,
+                         SOIL_CREATE_NEW_ID,
+                         SOIL_FLAG_INVERT_Y
+                     );
 
-    // Metody
+        if(texture[0] == 0)
+            return false;
+
+
+        glBindTexture(GL_TEXTURE_2D, texture[0]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+
+        return true;
+    }
 
 };
 
 
 int Engine::zmienna = 0;
 Engine* Engine::m_instanceSingleton = NULL;
-/*
-GLint LoadGLTexture(const char *filename, int width, int height)
+
+
+
+void main_menu()
 {
-     GLuint texture;
-     unsigned char *data;
-     FILE *file;
-
-     // open texture data
-     file = fopen(filename, "r");
-     if (file == NULL) return 0;
-
-     // allocate buffer
-     data = (unsigned char*) malloc(width * height * 4);
-
-     //read texture data
-     fread(data, width * height * 4, 1, file);
-     fclose(file);
-
-
-    texture = SOIL_load_OGL_texture // load an image file directly as a new OpenGL texture
-	(
-		"face.png",
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	);
-
-
-    // check for an error during the load process
-    if(texture == 0)
-    {
-	    //printf( "SOIL loading error: '%s'\n", SOIL_last_result() );
-    }
-
-    glGenTextures(1, &texture); // allocate a texture name
-    glBindTexture(GL_TEXTURE_2D, texture); // select our current texture
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_DECAL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_DECAL);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);  // when texture area is small, bilinear filter the closest mipmap
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // when texture area is large, bilinear filter the first mipmap
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);  // texture should tile
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data); // build our texture mipmaps
-    free(data);  // free buffer
-    return texture;
-}
-*/
-void display() {
-        // Menu //
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0, 0.0, 0.0);
-     glEnable(GL_TEXTURE_2D) ;
-/*
-    GLuint texture = LoadGLTexture("tex1.png", 345, 70);
-
-    glBindTexture( GL_TEXTURE_2D, texture );
-*/
-    glBegin(GL_QUADS);
-
-    glVertex2f(500, 600);
-    glVertex2f(900, 600);
-    glVertex2f(900, 700);
-    glVertex2f(500, 700);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex2f(500, 400);
-    glVertex2f(900, 400);
-    glVertex2f(900, 450);
-    glVertex2f(500, 450);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex2f(500, 300);
-    glVertex2f(900, 300);
-    glVertex2f(900, 350);
-    glVertex2f(500, 350);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex2f(500, 200);
-    glVertex2f(900, 200);
-    glVertex2f(900, 250);
-    glVertex2f(500, 250);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex2f(500, 100);
-    glVertex2f(900, 100);
-    glVertex2f(900, 150);
-    glVertex2f(500, 150);
-   // glutSolidCone(30, 50, 2, 2);
-
-    glEnd();
-        // END MENU //
-    glutSwapBuffers();
-    glFlush();
-}
-
-void reshape(int Width, int Height) {
-
-    if( Height == 0) {
-        Height = 1;
-    }
-    glViewport(0, 0, Width, Height); // Wyśrodkowanie
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture[0]);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0.0, (GLdouble) Width, 0.0, (GLdouble) Height, 100, -100);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    //gluLookAt(0,0,50, 0,0,0, 0,1,0); // Kamera
+
+    glBegin(GL_QUADS);
+
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(-1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f( 1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f( 1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(-1.0f,  1.0f,  1.0f);
+    glEnd();
 }
 
-void klawiatura(unsigned char key, int x, int y) {
-     switch (key)
-     {
-         case 27 :
-            case 'q':
-                exit(0);
-          break;
-          case 49 :
-                glutFullScreen();
-          break;
-          case 50 :
-                glutReshapeWindow(800,600);
-                glutInitWindowPosition(100,100);
-                cout << "DRUGA OPCJA" << endl;
-         break;
-     }
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    main_menu(); // TEXTURA Z MENU GŁÓWNYM
+    glutSwapBuffers();
 }
-void mouse(int button, int state, int x, int y) {
 
-    cout << button << endl;
-    cout << state << endl;
+void reshape(int width, int height)
+{
+    float ratio = 1.0f * width/height;
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glViewport(0,0,width,height);
+    gluPerspective(45,ratio,1,1000);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0.0,0.0,6.0,0.0,0.0,0.0,0.0f,1.0f,0.0f);
+}
+
+void klawiatura(unsigned char key, int x, int y);
+void mouse(int button, int state, int x, int y);
+void onIdle();
+void new_game_texture();
+void info_game_texture();
+int main(int argc, char *argv[])
+{
+
+    Engine *game;
+    game=game->getInstance();
+    flaga_menu = 1;
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGB);
+    glutInitWindowPosition(100,100);
+    glutInitWindowSize(800, 600);
+    glutCreateWindow("STATKI 3D");
+    glShadeModel(GL_SMOOTH);
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+    glutKeyboardFunc(klawiatura);
+    glutMouseFunc(mouse);
+    glutIdleFunc(onIdle);
+    glEnable(GL_TEXTURE_2D);
+    glShadeModel(GL_SMOOTH);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+    glClearDepth(1.0f);
+    glEnable(GL_DEPTH_TEST);
+    game->LoadGLTextures(); //<-- added this
+    glDepthFunc(GL_LEQUAL);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glutMainLoop();
+
+    return 0;
+}
+
+void klawiatura(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+    case 27 :
+    case 'q':
+        exit(0);
+        break;
+    case 49 :
+        glutFullScreen();
+        break;
+    case 50 :
+        glutReshapeWindow(800,600);
+        glutInitWindowPosition(100,100);
+        cout << "DRUGA OPCJA" << endl;
+
+        break;
+    }
+}
+
+void mouse(int button, int state, int x, int y)
+{
     cout << x << "," << y << endl;
+    // FULL SCR :
+    // if(x >= 460 && x <= 872 && y >= 250 && y <= 296 && flaga_menu == 1)
+    // if(x >= 544 && x <= 761 && y >= 370 && y <= 416 && flaga_menu == 1)
+    // if(x >= 520 && x <= 790 && y >= 482 && y <= 531 && flaga_menu == 1)
+    // if(x >= 523 && x <= 781 && y >= 597 && y <= 648 && flaga_menu == 1)
+    // END
+    // Znalezc funkcje, ktora zwraca status okna!
+    if(x >= 271 && x <= 503 && y >= 194 && y <= 233 && flaga_menu == 1)
+    {
+        cout << "NOWA GRA" << endl;
+        if(flaga_menu == 1)
+        {
+            flaga_menu = 0;
+            new_game_texture();
+        }
+    }
+    if(x >= 317 && x <= 450 && y >= 286 && y <= 325 && flaga_menu == 1)
+    {
+        cout << "OPCJE" << endl;
+    }
+    if(x >= 305 && x <= 463 && y >= 375 && y <= 413 && flaga_menu == 1)
+    {
+        cout << "O GRZE" << endl;
+        if(flaga_menu == 1)
+        {
+            info_game_texture();
+        }
+    }
+    if(x >= 305 && x <= 460 && y >= 460 && y <= 506 && flaga_menu == 1)
+    {
+        cout << "Wyjdz" << endl;
+        exit(0);
+    }
+
 }
 
-void onIdle() {
+void onIdle()
+{
 
     int time;
     time = glutGet(GLUT_ELAPSED_TIME);
@@ -204,24 +225,29 @@ void onIdle() {
     lastTime = time;
     glutPostRedisplay();
 }
+// Texture in New Game
+void new_game_texture()
+{
 
+    glDeleteTextures(1,texture);
+    texture[0] = SOIL_load_OGL_texture
+                 (
+                     "nowagra.jpg",
+                     SOIL_LOAD_AUTO,
+                     SOIL_CREATE_NEW_ID,
+                     SOIL_FLAG_INVERT_Y
+                 );
+}
+// Texture in Info Game
+void info_game_texture()
+{
 
-int main(int argc, char *argv[]) {
-
-    Engine *game;
-    game=game->getInstance();
-        glutInit(&argc, argv);
-        glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGB);
-        glutInitWindowPosition(100,100);
-        glutInitWindowSize(800, 600);
-        glutCreateWindow("STATKI 3D");
-        glShadeModel(GL_SMOOTH);
-        glutDisplayFunc(display);
-        glutReshapeFunc(reshape);
-        glutKeyboardFunc(klawiatura);
-        glutMouseFunc(mouse);
-        glutIdleFunc(onIdle);
-        gluPerspective(45,1,2,10);
-    glutMainLoop();
-    return 0;
+    glDeleteTextures(1,texture);
+    texture[0] = SOIL_load_OGL_texture
+                 (
+                     "ogrze.jpg",
+                     SOIL_LOAD_AUTO,
+                     SOIL_CREATE_NEW_ID,
+                     SOIL_FLAG_INVERT_Y
+                 );
 }
