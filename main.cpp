@@ -23,6 +23,10 @@ int flaga_info_game = 0;
 int flaga_exit = 0;
 int flag_fullscr = 0;
 int flaga_back_to_menu = 0;
+GLfloat rtri;         // Kąt obrotu trójkąta ( NOWE )
+GLfloat rquad;         // Kąt obroty czworokąta ( NOWE )
+GLfloat zrot;         // Obrót na osi Z ( NOWE )
+
 class Engine
 {
 private:
@@ -94,7 +98,6 @@ void main_menu()
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
     glBegin(GL_QUADS);
 
     glTexCoord2f(0.0f, 0.0f);
@@ -111,9 +114,46 @@ void main_menu()
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    main_menu(); // TEXTURA Z MENU GŁÓWNYM
 
+    main_menu(); // TEXTURA Z MENU GŁÓWNYM
+    glLoadIdentity();
+    glTranslatef(0.0f,0.0f,-6.0f);
+    glRotatef(rtri,0.0f,1.0f,0.0f);
+    glRotatef(zrot,0.0f,1.0f,1.0f);
+    glBegin(GL_TRIANGLES);
+             // Czerwony
+        glVertex3f( 0.0f, 1.0f, 0.0f);         // Góra trójkąta (Przednia)
+          glColor3f(1.0f,1.0f,1.0f);           // Zielony
+        glVertex3f(-1.0f,-1.0f, 1.0f);         // Lewy punkt trójkąta (Przednia)
+           glColor3f(1.0f,1.0f,1.0f);             // Niebieski
+        glVertex3f( 1.0f,-1.0f, 1.0f);         // Prawy punkt trójkąta (Przednia)
+
+         // Czerwony
+        glVertex3f( 0.0f, 1.0f, 0.0f);         // Góra trójkąta (Prawa)
+           glColor3f(1.0f,1.0f,1.0f);         // Niebieski
+        glVertex3f( 1.0f,-1.0f, 1.0f);         // Lewy punkt trójkąta (Prawa)
+          glColor3f(1.0f,1.0f,1.0f);        // Zielony
+        glVertex3f( 1.0f,-1.0f, -1.0f);         // Prawy punkt trójkąta (Prawa)
+
+                  // Czerwony
+        glVertex3f( 0.0f, 1.0f, 0.0f);         // Góra trójkąta (Tylna)
+          glColor3f(1.0f,1.0f,1.0f);          // Zielony
+        glVertex3f( 1.0f,-1.0f, -1.0f);         // Lewy punkt trójkąta (Tylna)
+        glColor3f(1.0f,1.0f,1.0f);         // Niebieski
+        glVertex3f(-1.0f,-1.0f, -1.0f);         // Prawy punkt trójkąta (Tylna)
+
+                  // Czerwony
+        glVertex3f( 0.0f, 1.0f, 0.0f);         // Góra trójkąta (Lewa)
+          glColor3f(1.0f,1.0f,1.0f);        // Niebieski
+        glVertex3f(-1.0f,-1.0f,-1.0f);         // Lewy punkt trójkąta (Lewa)
+          glColor3f(1.0f,1.0f,1.0f);       // Zielony
+        glVertex3f(-1.0f,-1.0f, 1.0f);         // Prawy punkt trójkąta (Lewa)
+    glEnd();
+
+        rtri+=0.2f;         // Zwiększ kąt obrotu trójkąta ( NOWE )
+        zrot+=0.4f;         // Obrót na osi Z
     glutSwapBuffers();
+
 }
 
 void reshape(int width, int height)
@@ -128,7 +168,8 @@ void reshape(int width, int height)
     // Rzuty END;
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-   // gluLookAt(0.0,0.0,6.0,0.0,0.0,0.0,0.0f,1.0f,0.0f);
+    //gluLookAt(28.0,0.0,6.0,0.0,6.0,8.0,1.0f,1.0f,0.0f);
+
 }
 
 void klawiatura(unsigned char key, int x, int y);
@@ -138,9 +179,9 @@ void new_game_texture();
 void info_game_texture();
 void main_menu_texture();
 void options_texture();
+
 int main(int argc, char *argv[])
 {
-
     Engine *game;
     game=game->getInstance();
     flaga_new_game = 1;
@@ -164,9 +205,9 @@ int main(int argc, char *argv[])
     glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
     glClearDepth(1.0f);
     glEnable(GL_DEPTH_TEST);
-    game->LoadGLTextures(); //<-- added this
     glDepthFunc(GL_LEQUAL);
-   // glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Obniza szybkosc dzialania programu, ale ładniej wygląda
+    game->LoadGLTextures(); //<-- added this
     glutMainLoop();
 
     return 0;
@@ -189,7 +230,6 @@ void klawiatura(unsigned char key, int x, int y)
         glutInitWindowPosition(100,100);
         flag_fullscr = 0;
         cout << "DRUGA OPCJA" << endl;
-
         break;
     }
 }
@@ -313,6 +353,7 @@ void onIdle()
     delta = time - lastTime;
     lastTime = time;
     glutPostRedisplay();
+    //cout << time << endl;
 }
 // Texture in New Game
 void new_game_texture()
