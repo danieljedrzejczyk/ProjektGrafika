@@ -98,8 +98,10 @@ void main_menu()
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glBegin(GL_QUADS);
+    // Problem z narysowaniem dowolnej figury przed texturą
 
+    // Wielokąt na textury
+    glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f);
     glVertex3f(-1.0f, -1.0f,  1.0f);
     glTexCoord2f(1.0f, 0.0f);
@@ -107,8 +109,9 @@ void main_menu()
     glTexCoord2f(1.0f, 1.0f);
     glVertex3f( 1.0f,  1.0f,  1.0f);
     glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(-1.0f,  1.0f,  1.0f);
+    glVertex3f(-1.0f,  1.0f, 1.0f);
     glEnd();
+
 }
 
 void display()
@@ -116,42 +119,27 @@ void display()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     main_menu(); // TEXTURA Z MENU GŁÓWNYM
-    glLoadIdentity();
-    glTranslatef(0.0f,0.0f,-6.0f);
-    glRotatef(rtri,0.0f,1.0f,0.0f);
-    glRotatef(zrot,0.0f,1.0f,1.0f);
-    glBegin(GL_TRIANGLES);
-             // Czerwony
-        glVertex3f( 0.0f, 1.0f, 0.0f);         // Góra trójkąta (Przednia)
-          glColor3f(1.0f,1.0f,1.0f);           // Zielony
-        glVertex3f(-1.0f,-1.0f, 1.0f);         // Lewy punkt trójkąta (Przednia)
-           glColor3f(1.0f,1.0f,1.0f);             // Niebieski
-        glVertex3f( 1.0f,-1.0f, 1.0f);         // Prawy punkt trójkąta (Przednia)
+    if(flaga_new_game==0)
+    {
+        glPushMatrix();
+        glTranslatef(0.0, 0.0, 0.0);
+        glRotatef(rtri,1.0f,0.0,0.0f);
+        // glRotatef(zrot,1.0,0.0f,0.0f);
+        glTranslatef(0.0, 0.0, 0.0);
+        glBegin(GL_TRIANGLES);
 
-         // Czerwony
-        glVertex3f( 0.0f, 1.0f, 0.0f);         // Góra trójkąta (Prawa)
-           glColor3f(1.0f,1.0f,1.0f);         // Niebieski
-        glVertex3f( 1.0f,-1.0f, 1.0f);         // Lewy punkt trójkąta (Prawa)
-          glColor3f(1.0f,1.0f,1.0f);        // Zielony
-        glVertex3f( 1.0f,-1.0f, -1.0f);         // Prawy punkt trójkąta (Prawa)
+        glVertex3f( -0.765, 0.40, 0.5);         // Góra trójkąta (Przednia)
+        glVertex3f(-0.788,0.35, 0.5);         // Lewy punkt trójkąta (Przednia)
+        glVertex3f( -0.740,0.35, 0.5);         // Prawy punkt trójkąta (Przednia)
 
-                  // Czerwony
-        glVertex3f( 0.0f, 1.0f, 0.0f);         // Góra trójkąta (Tylna)
-          glColor3f(1.0f,1.0f,1.0f);          // Zielony
-        glVertex3f( 1.0f,-1.0f, -1.0f);         // Lewy punkt trójkąta (Tylna)
-        glColor3f(1.0f,1.0f,1.0f);         // Niebieski
-        glVertex3f(-1.0f,-1.0f, -1.0f);         // Prawy punkt trójkąta (Tylna)
-
-                  // Czerwony
-        glVertex3f( 0.0f, 1.0f, 0.0f);         // Góra trójkąta (Lewa)
-          glColor3f(1.0f,1.0f,1.0f);        // Niebieski
-        glVertex3f(-1.0f,-1.0f,-1.0f);         // Lewy punkt trójkąta (Lewa)
-          glColor3f(1.0f,1.0f,1.0f);       // Zielony
-        glVertex3f(-1.0f,-1.0f, 1.0f);         // Prawy punkt trójkąta (Lewa)
-    glEnd();
-
-        rtri+=0.2f;         // Zwiększ kąt obrotu trójkąta ( NOWE )
-        zrot+=0.4f;         // Obrót na osi Z
+         glVertex3f( -0.765, 0.40, 0.5);         // Góra trójkąta (Prawa)
+         glVertex3f(-0.798,0.25, 0.5);         // Lewy punkt trójkąta (Przednia)
+         glVertex3f( -0.74,0.35, 0.5);         // Prawy punkt trójkąta (Przednia)
+        glEnd();
+        rtri+=0.3f;         // Zwiększ kąt obrotu trójkąta ( NOWE )
+        zrot+=0.3f;         // Obrót na osi Z
+        glPopMatrix();
+    }
     glutSwapBuffers();
 
 }
@@ -166,9 +154,9 @@ void reshape(int width, int height)
     gluPerspective(45,ratio,1,1000);
     //glOrtho(0.0, (GLdouble) width, 0.0, (GLdouble) height, 100, -100);
     // Rzuty END;
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    //gluLookAt(28.0,0.0,6.0,0.0,6.0,8.0,1.0f,1.0f,0.0f);
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
+   gluLookAt(0.0,0.0,6.0,0.0,0.0,0.0,0.0f,1.0f,0.0f);
 
 }
 
