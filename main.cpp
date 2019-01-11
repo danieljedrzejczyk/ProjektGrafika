@@ -111,9 +111,143 @@ void main_menu()
     glTexCoord2f(0.0f, 1.0f);
     glVertex3f(-1.0f,  1.0f, 1.0f);
     glEnd();
-
 }
+void statek() {
+     glPushMatrix();
+        glTranslatef(0.0, 0.0, 0.0);
+        glRotatef(rtri,1.0f,0.0,0.0f);
+    //  glRotatef(zrot,0.0,1.0f,0.0f);
+        glTranslatef(0.0, 0.0, 0.0);
+        glBegin(GL_TRIANGLES);
+            // Kadłub
+        glVertex3f( -0.765, 0.25, 0.0);        // Góra trójkąta (Przednia)
+        glVertex3f(-0.788,0.30, 0.0);         // Lewy punkt trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.0);       // Prawy punkt trójkąta (Przednia)
+            // LEWY BOK STATKU
+        glVertex3f( -0.765, 0.25, 0.0);         // Góra trójkąta (Przednia)
+        glVertex3f(-0.788,0.30, 0.0);          // Lewy punkt trójkąta (Przednia)
+        glVertex3f(-0.765,0.20, 0.3);         // Prawy punkt trójkąta (Glebia)
 
+        glVertex3f( -0.788,0.30, 0.0);
+        glVertex3f( -0.788,0.30, 0.3);
+        glVertex3f( -0.765,0.20, 0.3);
+            // PRAWY BOK STATKU
+        glVertex3f( -0.765, 0.25, 0.0);         // Góra trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.0);         // Prawy punkt trójkąta (Przednia)
+        glVertex3f(-0.765,0.20, 0.3);         // Góra trójkąta (Glebia)
+
+        glVertex3f( -0.740,0.30, 0.0);        // Prawy punkt trójkąta (Przod)
+        glVertex3f( -0.740,0.30, 0.3);       // Prawy punkt trójkąta (Glebia)
+        glVertex3f( -0.765,0.20, 0.3);      // Góra trójkąta (Glebia)
+
+            // POKŁAD
+        glVertex3f(-0.788,0.30, 0.0);            // Lewy punkt trójkąta (Przednia)
+        glVertex3f(-0.788,0.30, 0.3);           // Lewy punkt trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.3);         // Prawy punkt trójkąta (Głebia)
+
+        glVertex3f( -0.740,0.30, 0.0);           // Prawy punkt trójkąta (Przednia)
+        glVertex3f(-0.788,0.30, 0.0);           // Lewy punkt trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.3);         // Lewy punkt trójkąta (Glebia)
+
+
+                    // Kadłub TYL
+        glVertex3f( -0.765, 0.25, 0.3);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.788,0.30, 0.3);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.740,0.30, 0.3);       // Prawy punkt trójkąta (Glebia)
+                    // Komin STATKU 1
+        glVertex3f( -0.773, 0.40, 0.15);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.30, 0.15);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.773,0.30, 0.15);       // Prawy punkt trójkąta (Glebia)
+
+        glVertex3f( -0.773, 0.40, 0.15);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.40, 0.15);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.755,0.30, 0.15);       // Prawy punkt trójkąta (Glebia)
+                        // Tył komina
+            glVertex3f( -0.773, 0.40, 0.17);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.30, 0.17);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.773,0.30, 0.17);       // Prawy punkt trójkąta (Glebia)
+            glVertex3f( -0.773, 0.40, 0.17);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.40, 0.17);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.755,0.30, 0.17);       // Prawy punkt trójkąta (Glebia)
+                        // boczna sciana
+        glVertex3f( -0.773, 0.40, 0.17);
+        glVertex3f( -0.773, 0.30, 0.17);
+        glVertex3f( -0.773,0.30, 0.15);
+        glVertex3f( -0.773, 0.30, 0.15);
+        glVertex3f( -0.773,0.40, 0.15);
+        glVertex3f( -0.773, 0.40, 0.17);
+                        //boczna sciana
+        glVertex3f( -0.755, 0.40, 0.17);
+        glVertex3f( -0.755,0.30, 0.17);
+        glVertex3f( -0.755, 0.30, 0.15);
+        glVertex3f( -0.755, 0.30, 0.15);
+        glVertex3f( -0.755,0.40, 0.15);
+        glVertex3f( -0.755, 0.40, 0.17);
+                    // Komin STATKU 2
+        glVertex3f( -0.773, 0.35, 0.20);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.30, 0.20);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.773,0.30, 0.20);       // Prawy punkt trójkąta (Glebia)
+
+        glVertex3f( -0.773, 0.35, 0.20);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.35, 0.20);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.755,0.30, 0.20);       // Prawy punkt trójkąta (Glebia)
+
+                         // Tył komina
+            glVertex3f( -0.773, 0.35, 0.22);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.30, 0.22);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.773,0.30, 0.22);       // Prawy punkt trójkąta (Glebia)
+            glVertex3f( -0.773, 0.35, 0.22);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.35, 0.22);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.755,0.30, 0.22);       // Prawy punkt trójkąta (Glebia)
+                                // boczna sciana
+                glVertex3f( -0.773, 0.35, 0.22);
+                glVertex3f( -0.773, 0.30, 0.22);
+                glVertex3f( -0.773,0.30, 0.20);
+                glVertex3f( -0.773, 0.30, 0.20);
+                glVertex3f( -0.773,0.35, 0.20);
+                glVertex3f( -0.773, 0.35, 0.22);
+                                //boczna sciana
+                glVertex3f( -0.755, 0.35, 0.22);
+                glVertex3f( -0.755,0.30, 0.22);
+                glVertex3f( -0.755, 0.30, 0.20);
+                glVertex3f( -0.755, 0.30, 0.20);
+                glVertex3f( -0.755,0.35, 0.20);
+                glVertex3f( -0.755, 0.35, 0.22);
+                            // Komin STATKU 3
+        glVertex3f( -0.773, 0.35, 0.10);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.30, 0.10);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.773,0.30, 0.10);       // Prawy punkt trójkąta (Glebia)
+
+        glVertex3f( -0.773, 0.35, 0.10);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.35, 0.10);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.755,0.30, 0.10);       // Prawy punkt trójkąta (Glebia)
+
+                             // Tył komina
+            glVertex3f( -0.773, 0.35, 0.12);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.30, 0.12);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.773,0.30, 0.12);       // Prawy punkt trójkąta (Glebia)
+            glVertex3f( -0.773, 0.35, 0.12);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.35, 0.12);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.755,0.30, 0.12);       // Prawy punkt trójkąta (Glebia)
+                            // boczna sciana
+            glVertex3f( -0.773, 0.35, 0.12);
+            glVertex3f( -0.773, 0.30, 0.12);
+            glVertex3f( -0.773,0.30, 0.10);
+            glVertex3f( -0.773, 0.30, 0.10);
+            glVertex3f( -0.773,0.35, 0.10);
+            glVertex3f( -0.773, 0.35, 0.12);
+                            //boczna sciana
+            glVertex3f( -0.755, 0.35, 0.12);
+            glVertex3f( -0.755,0.30, 0.12);
+            glVertex3f( -0.755, 0.30, 0.10);
+            glVertex3f( -0.755, 0.30, 0.10);
+            glVertex3f( -0.755,0.35, 0.10);
+            glVertex3f( -0.755, 0.35, 0.12);
+        glEnd();
+        rtri+=0.3f;         // Zwiększ kąt obrotu trójkąta ( NOWE )
+        zrot+=0.3f;         // Obrót na osi Z
+        glPopMatrix();
+}
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -121,24 +255,137 @@ void display()
     main_menu(); // TEXTURA Z MENU GŁÓWNYM
     if(flaga_new_game==0)
     {
-        glPushMatrix();
+       statek();
+        // Statek 2
+        glRotatef(zrot,0.0,1.0f,0.0f);
         glTranslatef(0.0, 0.0, 0.0);
-        glRotatef(rtri,1.0f,0.0,0.0f);
-        // glRotatef(zrot,1.0,0.0f,0.0f);
-        glTranslatef(0.0, 0.0, 0.0);
-        glBegin(GL_TRIANGLES);
+         glBegin(GL_TRIANGLES);
+            // Kadłub
+        glVertex3f( -0.765, 0.25, 0.0);        // Góra trójkąta (Przednia)
+        glVertex3f(-0.788,0.30, 0.0);         // Lewy punkt trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.0);       // Prawy punkt trójkąta (Przednia)
+            // LEWY BOK STATKU
+        glVertex3f( -0.765, 0.25, 0.0);         // Góra trójkąta (Przednia)
+        glVertex3f(-0.788,0.30, 0.0);          // Lewy punkt trójkąta (Przednia)
+        glVertex3f(-0.765,0.20, 0.3);         // Prawy punkt trójkąta (Glebia)
 
-        glVertex3f( -0.765, 0.40, 0.5);         // Góra trójkąta (Przednia)
-        glVertex3f(-0.788,0.35, 0.5);         // Lewy punkt trójkąta (Przednia)
-        glVertex3f( -0.740,0.35, 0.5);         // Prawy punkt trójkąta (Przednia)
+        glVertex3f( -0.788,0.30, 0.0);
+        glVertex3f( -0.788,0.30, 0.3);
+        glVertex3f( -0.765,0.20, 0.3);
+            // PRAWY BOK STATKU
+        glVertex3f( -0.765, 0.25, 0.0);         // Góra trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.0);         // Prawy punkt trójkąta (Przednia)
+        glVertex3f(-0.765,0.20, 0.3);         // Góra trójkąta (Glebia)
 
-         glVertex3f( -0.765, 0.40, 0.5);         // Góra trójkąta (Prawa)
-         glVertex3f(-0.798,0.25, 0.5);         // Lewy punkt trójkąta (Przednia)
-         glVertex3f( -0.74,0.35, 0.5);         // Prawy punkt trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.0);        // Prawy punkt trójkąta (Przod)
+        glVertex3f( -0.740,0.30, 0.3);       // Prawy punkt trójkąta (Glebia)
+        glVertex3f( -0.765,0.20, 0.3);      // Góra trójkąta (Glebia)
+
+            // POKŁAD
+        glVertex3f(-0.788,0.30, 0.0);            // Lewy punkt trójkąta (Przednia)
+        glVertex3f(-0.788,0.30, 0.3);           // Lewy punkt trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.3);         // Prawy punkt trójkąta (Głebia)
+
+        glVertex3f( -0.740,0.30, 0.0);           // Prawy punkt trójkąta (Przednia)
+        glVertex3f(-0.788,0.30, 0.0);           // Lewy punkt trójkąta (Przednia)
+        glVertex3f( -0.740,0.30, 0.3);         // Lewy punkt trójkąta (Glebia)
+
+
+                    // Kadłub TYL
+        glVertex3f( -0.765, 0.25, 0.3);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.788,0.30, 0.3);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.740,0.30, 0.3);       // Prawy punkt trójkąta (Glebia)
+                    // Komin STATKU 1
+        glVertex3f( -0.773, 0.40, 0.15);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.30, 0.15);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.773,0.30, 0.15);       // Prawy punkt trójkąta (Glebia)
+
+        glVertex3f( -0.773, 0.40, 0.15);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.40, 0.15);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.755,0.30, 0.15);       // Prawy punkt trójkąta (Glebia)
+                        // Tył komina
+            glVertex3f( -0.773, 0.40, 0.17);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.30, 0.17);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.773,0.30, 0.17);       // Prawy punkt trójkąta (Glebia)
+            glVertex3f( -0.773, 0.40, 0.17);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.40, 0.17);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.755,0.30, 0.17);       // Prawy punkt trójkąta (Glebia)
+                        // boczna sciana
+        glVertex3f( -0.773, 0.40, 0.17);
+        glVertex3f( -0.773, 0.30, 0.17);
+        glVertex3f( -0.773,0.30, 0.15);
+        glVertex3f( -0.773, 0.30, 0.15);
+        glVertex3f( -0.773,0.40, 0.15);
+        glVertex3f( -0.773, 0.40, 0.17);
+                        //boczna sciana
+        glVertex3f( -0.755, 0.40, 0.17);
+        glVertex3f( -0.755,0.30, 0.17);
+        glVertex3f( -0.755, 0.30, 0.15);
+        glVertex3f( -0.755, 0.30, 0.15);
+        glVertex3f( -0.755,0.40, 0.15);
+        glVertex3f( -0.755, 0.40, 0.17);
+                    // Komin STATKU 2
+        glVertex3f( -0.773, 0.35, 0.20);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.30, 0.20);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.773,0.30, 0.20);       // Prawy punkt trójkąta (Glebia)
+
+        glVertex3f( -0.773, 0.35, 0.20);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.35, 0.20);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.755,0.30, 0.20);       // Prawy punkt trójkąta (Glebia)
+
+                         // Tył komina
+            glVertex3f( -0.773, 0.35, 0.22);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.30, 0.22);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.773,0.30, 0.22);       // Prawy punkt trójkąta (Glebia)
+            glVertex3f( -0.773, 0.35, 0.22);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.35, 0.22);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.755,0.30, 0.22);       // Prawy punkt trójkąta (Glebia)
+                                // boczna sciana
+                glVertex3f( -0.773, 0.35, 0.22);
+                glVertex3f( -0.773, 0.30, 0.22);
+                glVertex3f( -0.773,0.30, 0.20);
+                glVertex3f( -0.773, 0.30, 0.20);
+                glVertex3f( -0.773,0.35, 0.20);
+                glVertex3f( -0.773, 0.35, 0.22);
+                                //boczna sciana
+                glVertex3f( -0.755, 0.35, 0.22);
+                glVertex3f( -0.755,0.30, 0.22);
+                glVertex3f( -0.755, 0.30, 0.20);
+                glVertex3f( -0.755, 0.30, 0.20);
+                glVertex3f( -0.755,0.35, 0.20);
+                glVertex3f( -0.755, 0.35, 0.22);
+                            // Komin STATKU 3
+        glVertex3f( -0.773, 0.35, 0.10);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.30, 0.10);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.773,0.30, 0.10);       // Prawy punkt trójkąta (Glebia)
+
+        glVertex3f( -0.773, 0.35, 0.10);         // Góra trójkąta (Glebia)
+        glVertex3f(-0.755,0.35, 0.10);         // Lewy punkt trójkąta (Glebia)
+        glVertex3f( -0.755,0.30, 0.10);       // Prawy punkt trójkąta (Glebia)
+
+                             // Tył komina
+            glVertex3f( -0.773, 0.35, 0.12);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.30, 0.12);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.773,0.30, 0.12);       // Prawy punkt trójkąta (Glebia)
+            glVertex3f( -0.773, 0.35, 0.12);         // Góra trójkąta (Glebia)
+            glVertex3f(-0.755,0.35, 0.12);         // Lewy punkt trójkąta (Glebia)
+            glVertex3f( -0.755,0.30, 0.12);       // Prawy punkt trójkąta (Glebia)
+                            // boczna sciana
+            glVertex3f( -0.773, 0.35, 0.12);
+            glVertex3f( -0.773, 0.30, 0.12);
+            glVertex3f( -0.773,0.30, 0.10);
+            glVertex3f( -0.773, 0.30, 0.10);
+            glVertex3f( -0.773,0.35, 0.10);
+            glVertex3f( -0.773, 0.35, 0.12);
+                            //boczna sciana
+            glVertex3f( -0.755, 0.35, 0.12);
+            glVertex3f( -0.755,0.30, 0.12);
+            glVertex3f( -0.755, 0.30, 0.10);
+            glVertex3f( -0.755, 0.30, 0.10);
+            glVertex3f( -0.755,0.35, 0.10);
+            glVertex3f( -0.755, 0.35, 0.12);
         glEnd();
-        rtri+=0.3f;         // Zwiększ kąt obrotu trójkąta ( NOWE )
         zrot+=0.3f;         // Obrót na osi Z
-        glPopMatrix();
     }
     glutSwapBuffers();
 
