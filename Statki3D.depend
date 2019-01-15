@@ -41,7 +41,7 @@
 	<algorithm>
 	<ctime>
 
-1547403126 source:c:\users\3dani\desktop\projektgrafika\main.cpp
+1547578972 source:c:\users\3dani\desktop\projektgrafika\main.cpp
 	<iostream>
 	<GL/gl.h>
 	<GL/glu.h>
@@ -55,4 +55,12 @@
 	<algorithm>
 	<ctime>
 	<windows.h>
+
+1547463866 c:\users\3dani\desktop\projektgrafika\statki_modele.h
+
+1547463899 source:c:\users\3dani\desktop\projektgrafika\statki_modele.cpp
+	"statki_modele.h"
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
 
