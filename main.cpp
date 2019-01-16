@@ -14,7 +14,6 @@
 #include <windows.h>
 #define STB_IMAGE_IMPLEMENTATION
 using namespace std;
-
 int delta, lastTime;
 
 GLuint texture[1];
@@ -51,6 +50,7 @@ double Komin_2_prz = 0.20;
 double Komin_3_tyl = 0.12;
 double Komin_3_prz = 0.10;
 
+double Translacja_obrot = -0.3;
 GLfloat rtrx, zrot;
 
 class Engine
@@ -114,57 +114,68 @@ int Engine::zmienna = 0;
 Engine* Engine::m_instanceSingleton = NULL;
 
 
-void main_menu()
-{
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture[0]);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    // gluLookAt(0.0+kamerax,0.0+kameray,0.1,0.0,0.0,0.0, 0.0,0.6,0.0);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-1.0f, -1.0f,  1.0f);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f( 1.0f, -1.0f,  1.0f);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f( 1.0f,  1.0f,  1.0f);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(-1.0f,  1.0f, 1.0f);
-    glEnd();
-//glMatrixMode(GL_MODELVIEW);
-    //  glLoadIdentity();
-}
-void Oswietlenie()
-{
-    GLfloat ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };
-    GLfloat diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f };
-    GLfloat specular[] = { 0.0f, 1.0f, 1.0f, 1.0f};
-    GLfloat lightPos[] = { 0.0f, 150.0f, 150.0f, 1.0f };
-    GLfloat specref[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    glFrontFace(GL_CCW);
-    glEnable(GL_LIGHTING);
-    glLightfv(GL_LIGHT0,GL_AMBIENT,ambientLight);
-    glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuseLight);
-    glLightfv(GL_LIGHT0,GL_SPECULAR,specular);
-    glLightfv(GL_LIGHT0,GL_POSITION,lightPos);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_COLOR_MATERIAL);
+class Statek {
+public:
+    double WiezcholekX1 = -0.765;
+    double Bok_LeftX1 = -0.788;
+    double Bok_RightX1 = -0.740;
+    double Komin_WiezcholekX1 = -0.773;
+    double Komin_Bok_LeftX1 = -0.755;
 
-    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,specref);
-    glMateriali(GL_FRONT,GL_SHININESS,128);
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f );
-}
-void statek_gracza_1()
-{
-    Oswietlenie();
-     //glTranslatef(0.0f,0.2f,0.0f);
-     glRotatef(rtrx,1.0f,0.0f,0.0f);
-    glPushMatrix();
+    double WierzcholekY1 = 0.25;
+    double BokY1 = 0.30;
+    double Wierzcholek_Dla_ZY1 = 0.20;
+    double Komin_1_Y = 0.40;
+    double Komin_2_Y = 0.35;
 
-    glTranslatef(0.0,-0.3,0.0);
+    double Dlugosc_statku = 0.3;
+    double Komin_1_tyl = 0.17;
+    double Komin_1_prz = 0.15;
+    double Komin_2_tyl = 0.22;
+    double Komin_2_prz = 0.20;
+    double Komin_3_tyl = 0.12;
+    double Komin_3_prz = 0.10;
+
+    Statek(double WiezcholekX1,
+          double Bok_LeftX1,
+          double Bok_RightX1,
+          double Komin_WiezcholekX1,
+          double Komin_Bok_LeftX1,
+          double WierzcholekY1,
+          double BokY1,
+          double Wierzcholek_Dla_ZY1,
+          double Komin_1_Y,
+          double Komin_2_Y,
+          double Dlugosc_statku,
+          double Komin_1_tyl,
+          double Komin_1_prz,
+          double Komin_2_tyl,
+          double Komin_2_prz,
+          double Komin_3_tyl,
+          double Komin_3_prz
+          ) {
+        this->WiezcholekX1 = WiezcholekX1;
+        this->Bok_LeftX1 = Bok_LeftX1;
+        this->Bok_RightX1 = Bok_RightX1;
+        this->Komin_WiezcholekX1 = Komin_WiezcholekX1;
+        this->Komin_Bok_LeftX1 = Komin_Bok_LeftX1;
+        this->WierzcholekY1 = WierzcholekY1;
+        this->BokY1 = BokY1;
+        this->Wierzcholek_Dla_ZY1 = Wierzcholek_Dla_ZY1;
+        this->Komin_1_Y = Komin_1_Y;
+        this->Komin_2_Y = Komin_2_Y;
+        this->Dlugosc_statku = Dlugosc_statku;
+        this->Komin_1_tyl = Komin_1_tyl;
+        this->Komin_1_prz = Komin_1_prz;
+        this->Komin_2_tyl = Komin_2_tyl;
+        this->Komin_2_prz = Komin_2_prz;
+        this->Komin_3_tyl = Komin_3_tyl;
+        this->Komin_3_prz = Komin_3_prz;
+    }
+    void elo() {
+    cout << "elo" << endl;
+    }
+    void rysuj() {
     glBegin(GL_TRIANGLES);
     // Kadłub
     glVertex3f( WiezcholekX1, WierzcholekY1, 0.0);        // Góra trójkąta (Przednia)
@@ -291,16 +302,65 @@ void statek_gracza_1()
     glVertex3f( Komin_Bok_LeftX1,Komin_2_Y, Komin_3_prz);
     glVertex3f( Komin_Bok_LeftX1, Komin_2_Y, Komin_3_tyl);
     glEnd();
-
+    rtrx+=0.1f;
     glPopMatrix();
-    rtrx+=0.2f;
+
+
+    }
+};
+
+list <Statek*> lista_statkow;
+list <Statek*>::iterator it;
+
+void main_menu()
+{
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture[0]);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    // gluLookAt(0.0+kamerax,0.0+kameray,0.1,0.0,0.0,0.0, 0.0,0.6,0.0);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(-1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f( 1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f( 1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(-1.0f,  1.0f, 1.0f);
+    glEnd();
 }
+void Oswietlenie()
+{
+    GLfloat ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };
+    GLfloat diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f };
+    GLfloat specular[] = { 0.0f, 1.0f, 1.0f, 1.0f};
+    GLfloat lightPos[] = { 0.0f, 150.0f, 150.0f, 1.0f };
+    GLfloat specref[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    glFrontFace(GL_CCW);
+    glEnable(GL_LIGHTING);
+    glLightfv(GL_LIGHT0,GL_AMBIENT,ambientLight);
+    glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuseLight);
+    glLightfv(GL_LIGHT0,GL_SPECULAR,specular);
+    glLightfv(GL_LIGHT0,GL_POSITION,lightPos);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_COLOR_MATERIAL);
+
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    glMaterialfv(GL_FRONT, GL_SPECULAR,specref);
+    glMateriali(GL_FRONT,GL_SHININESS,128);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f );
+}
+
 
 void display()
 {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     main_menu(); // TEXTURA Z MENU GŁÓWNYM
+
     if(obiekt == 1)
     {
         GLuint tex;
@@ -317,7 +377,47 @@ void display()
             0.0f, 0.0f, 0.0f, 0.0f
         };
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
-        statek_gracza_1();
+
+        Oswietlenie();
+
+        Statek Obiekt_Statek(WiezcholekX1,
+           Bok_LeftX1,
+           Bok_RightX1,
+           Komin_WiezcholekX1,
+           Komin_Bok_LeftX1,
+           WierzcholekY1,
+           BokY1,
+           Wierzcholek_Dla_ZY1,
+           Komin_1_Y,
+           Komin_2_Y,
+           Dlugosc_statku,
+           Komin_1_tyl,
+           Komin_1_prz,
+           Komin_2_tyl,
+           Komin_2_prz,
+           Komin_3_tyl,
+           Komin_3_prz
+          );
+          glTranslatef(0.0f,0.2f,0.0f);
+          glPushMatrix();
+                glRotatef(rtrx,1.0f,0.0f,0.0f);
+                glTranslatef(0.0,-0.3,0.0);
+                Obiekt_Statek.rysuj();
+          glPopMatrix();
+
+        Statek* t;
+            for (it = lista_statkow.begin(); it != lista_statkow.end(); it++)
+		{
+		    t = *it;
+            glTranslatef(0.0f,0.1f,0.0f);
+
+            glPushMatrix();
+                glRotatef(rtrx,1.0f,0.0f,0.0f);
+                glTranslatef(0.0,0.0,0.0);
+                t->rysuj();
+            glPopMatrix();
+		}
+
         // STATKI MODELE DO PREZENTACJI
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
@@ -676,6 +776,48 @@ void klawiatura(unsigned char key, int x, int y)
         Bok_RightX1 -= 0.057;
         Komin_WiezcholekX1 -= 0.057;
         Komin_Bok_LeftX1 -= 0.057;
+        break;
+    case 119:
+        glPushMatrix();
+        WierzcholekY1 += 0.01;
+        BokY1 += 0.01;
+        Wierzcholek_Dla_ZY1 += 0.01;
+        Komin_1_Y += 0.01;
+        Komin_2_Y += 0.01;
+        glPopMatrix();
+        Translacja_obrot -= 0.001;
+        break;
+    case 115:
+        WierzcholekY1 -= 0.01;
+        BokY1 -= 0.01;
+        Wierzcholek_Dla_ZY1 -= 0.01;
+        Komin_1_Y -= 0.01;
+        Komin_2_Y -= 0.01;
+        Translacja_obrot += 0.001;
+        break;
+    case 32:
+        cout << "Spacja" << endl;
+
+           lista_statkow.push_front(new Statek(WiezcholekX1,
+           Bok_LeftX1,
+           Bok_RightX1,
+           Komin_WiezcholekX1,
+           Komin_Bok_LeftX1,
+           WierzcholekY1,
+           BokY1,
+           Wierzcholek_Dla_ZY1,
+           Komin_1_Y,
+           Komin_2_Y,
+           Dlugosc_statku,
+           Komin_1_tyl,
+           Komin_1_prz,
+           Komin_2_tyl,
+           Komin_2_prz,
+           Komin_3_tyl,
+           Komin_3_prz
+          ));
+
+
         break;
     }
 }
