@@ -51,6 +51,7 @@ double Komin_3_tyl = 0.12;
 double Komin_3_prz = 0.10;
 
 double Translacja_obrot = -0.3;
+double Translacja_obrot_postaw;
 GLfloat rtrx, zrot;
 
 class Engine
@@ -135,7 +136,7 @@ public:
     double Komin_2_prz = 0.20;
     double Komin_3_tyl = 0.12;
     double Komin_3_prz = 0.10;
-
+    double Translacja_obrot;
     Statek(double WiezcholekX1,
           double Bok_LeftX1,
           double Bok_RightX1,
@@ -152,7 +153,8 @@ public:
           double Komin_2_tyl,
           double Komin_2_prz,
           double Komin_3_tyl,
-          double Komin_3_prz
+          double Komin_3_prz,
+          double Translacja_obrot
           ) {
         this->WiezcholekX1 = WiezcholekX1;
         this->Bok_LeftX1 = Bok_LeftX1;
@@ -171,6 +173,7 @@ public:
         this->Komin_2_prz = Komin_2_prz;
         this->Komin_3_tyl = Komin_3_tyl;
         this->Komin_3_prz = Komin_3_prz;
+        this->Translacja_obrot = Translacja_obrot;
     }
     void elo() {
     cout << "elo" << endl;
@@ -311,7 +314,6 @@ public:
 
 list <Statek*> lista_statkow;
 list <Statek*>::iterator it;
-
 void main_menu()
 {
     glEnable(GL_TEXTURE_2D);
@@ -396,12 +398,15 @@ void display()
            Komin_2_tyl,
            Komin_2_prz,
            Komin_3_tyl,
-           Komin_3_prz
+           Komin_3_prz,
+           Translacja_obrot
           );
-          glTranslatef(0.0f,0.2f,0.0f);
+          //glTranslatef(0.0,-0.4,0.0);
+            cout << Translacja_obrot << endl;
           glPushMatrix();
-                glRotatef(rtrx,1.0f,0.0f,0.0f);
-                glTranslatef(0.0,-0.3,0.0);
+            glTranslatef(0.0f,Translacja_obrot,0.0f);
+                //glRotatef(rtrx,1.0f,0.0f,0.0f);
+               // glTranslatef(0.0,-0.3,0.0);
                 Obiekt_Statek.rysuj();
           glPopMatrix();
 
@@ -409,11 +414,12 @@ void display()
             for (it = lista_statkow.begin(); it != lista_statkow.end(); it++)
 		{
 		    t = *it;
-            glTranslatef(0.0f,0.1f,0.0f);
+            //glTranslatef(0.0f,0.1f,0.0f);
 
             glPushMatrix();
+                glTranslatef(0.0,(t->Translacja_obrot)+0.3,0.3);
                 glRotatef(rtrx,1.0f,0.0f,0.0f);
-                glTranslatef(0.0,0.0,0.0);
+                glTranslatef(0.0,-0.3,0.0);
                 t->rysuj();
             glPopMatrix();
 		}
@@ -778,22 +784,24 @@ void klawiatura(unsigned char key, int x, int y)
         Komin_Bok_LeftX1 -= 0.057;
         break;
     case 119:
-        glPushMatrix();
-        WierzcholekY1 += 0.01;
-        BokY1 += 0.01;
-        Wierzcholek_Dla_ZY1 += 0.01;
-        Komin_1_Y += 0.01;
-        Komin_2_Y += 0.01;
-        glPopMatrix();
-        Translacja_obrot -= 0.001;
+        //glPushMatrix();
+        //WierzcholekY1 += 0.01;
+        //BokY1 += 0.01;
+        //Wierzcholek_Dla_ZY1 += 0.01;
+        //Komin_1_Y += 0.01;
+        //Komin_2_Y += 0.01;
+       // glPopMatrix();
+
+        Translacja_obrot += 0.01;
+
         break;
     case 115:
-        WierzcholekY1 -= 0.01;
-        BokY1 -= 0.01;
-        Wierzcholek_Dla_ZY1 -= 0.01;
-        Komin_1_Y -= 0.01;
-        Komin_2_Y -= 0.01;
-        Translacja_obrot += 0.001;
+        //WierzcholekY1 -= 0.01;
+        //BokY1 -= 0.01;
+        //Wierzcholek_Dla_ZY1 -= 0.01;
+        //Komin_1_Y -= 0.01;
+        //Komin_2_Y -= 0.01;
+         Translacja_obrot -= 0.01;
         break;
     case 32:
         cout << "Spacja" << endl;
@@ -814,9 +822,10 @@ void klawiatura(unsigned char key, int x, int y)
            Komin_2_tyl,
            Komin_2_prz,
            Komin_3_tyl,
-           Komin_3_prz
+           Komin_3_prz,
+           Translacja_obrot
           ));
-
+          //Translacja_obrot_postaw = Translacja_obrot;
 
         break;
     }
@@ -937,13 +946,12 @@ void mouse(int button, int state, int x, int y)
 
 void onIdle()
 {
-
     int time;
     time = glutGet(GLUT_ELAPSED_TIME);
     delta = time - lastTime;
     lastTime = time;
     glutPostRedisplay();
-    //cout << time << endl;
+   // cout << time << endl;
 }
 // Texture in New Game
 void new_game_texture()
